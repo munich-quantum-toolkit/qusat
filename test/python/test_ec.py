@@ -10,10 +10,10 @@
 
 from __future__ import annotations
 
-from qiskit.circuit import QuantumCircuit
-
 from mqt.core import load
 from mqt.core.ir import QuantumComputation
+from qiskit.circuit import QuantumCircuit
+
 from mqt.qusat import check_equivalence
 
 
