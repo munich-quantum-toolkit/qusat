@@ -44,9 +44,9 @@ if(BUILD_MQT_QUSAT_BINDINGS)
 endif()
 
 # cmake-format: off
-set(MQT_CORE_VERSION 3.0.2
+set(MQT_CORE_VERSION 3.2.0
     CACHE STRING "MQT Core version")
-set(MQT_CORE_REV "9b6e01482cc77f48c828d988407ee4f8e4e93b56"
+set(MQT_CORE_REV "28e41bf9516b5f103ea4002810f5b87e0b5450bc"
     CACHE STRING "MQT Core identifier (tag, branch or commit hash)")
 set(MQT_CORE_REPO_OWNER "munich-quantum-toolkit"
     CACHE STRING "MQT Core repository owner (change when using a fork)")
