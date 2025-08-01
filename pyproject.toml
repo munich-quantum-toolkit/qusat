@@ -3,7 +3,7 @@ requires = [
     "scikit-build-core>=0.11.2",
     "setuptools-scm>=8.3.1",
     "pybind11>=2.13.6",
-    "mqt.core~=3.0.2",
+    "mqt.core>=3.0.2,<3.3.0",
 ]
 build-backend = "scikit_build_core.build"
 
@@ -306,7 +306,7 @@ build = [
   "pybind11>=2.13.6",
   "scikit-build-core>=0.11.2",
   "setuptools-scm>=8.3.1",
-  "mqt.core~=3.0.2",
+  "mqt.core>=3.0.2,<3.3.0",
 ]
 test = [
   "pytest>=8.3.5",
