@@ -115,7 +115,13 @@ write_to = "python/mqt/qusat/_version.py"
 [tool.pytest.ini_options]
 minversion = "7.2"
 testpaths = ["test/python"]
-addopts = ["-ra", "--strict-markers", "--strict-config", "--showlocals"]
+addopts = [
+  "-ra",
+  "--strict-markers",
+  "--strict-config",
+  "--showlocals",
+  "--numprocesses=auto", # Automatically use all available CPU cores for parallel testing
+]
 log_cli_level = "INFO"
 xfail_strict = true
 filterwarnings = ["error"]
@@ -130,6 +136,9 @@ report.exclude_also = [
     'raise NotImplementedError',
     'def __dir__()',  # Ignore __dir__ method that exists mainly for better IDE support
     '@overload'  # Overloads are only for static typing
+]
+run.disable_warnings = [
+  "no-sysmon",
 ]
 
 
@@ -316,6 +325,8 @@ build = [
 test = [
   "pytest>=8.3.5",
   "pytest-cov>=6.1.1",
+  "pytest-sugar>=1.0.0",
+  "pytest-xdist>=3.7.0",
   "qiskit[qasm3-import]>=1.0.0",
   "numpy>=2.1; python_version >= '3.13'",
 ]
