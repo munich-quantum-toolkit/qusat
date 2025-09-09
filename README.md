@@ -20,7 +20,7 @@
 
 # MQT QuSAT - A Tool for Utilizing SAT in Quantum Computing
 
-A tool for utilizing satisfiablity testing (SAT) techniques in quantum computing.
+MQT QuSAT is a tool for utilizing satisfiablity testing (SAT) techniques in quantum computing.
 It is part of the [_Munich Quantum Toolkit (MQT)_](https://mqt.readthedocs.io).
 
 <p align="center">
@@ -113,11 +113,11 @@ When citing the software itself or results produced with it, cite the MQT QuSAT 
 
 ```
 @inproceedings{berent2022sat,
-      title={Towards a SAT Encoding for Quantum Circuits: A Journey From Classical Circuits to Clifford Circuits and Beyond},
-      author={Lucas Berent and Lukas Burgholzer and Robert Wille},
-      year={2022},
-      booktitle={International Conference on Theory and Applications of Satisfiability Testing},
-      doi={https://doi.org/10.4230/LIPIcs.SAT.2022.18}
+  title        = {Towards a SAT Encoding for Quantum Circuits: A Journey From Classical Circuits to Clifford Circuits and Beyond},
+  author       = {Berent, Lucas and Burgholzer, Lukas and Wille, Robert},
+  year         = {2022},
+  booktitle    = {International Conference on Theory and Applications of Satisfiability Testing},
+  doi          = {https://doi.org/10.4230/LIPIcs.SAT.2022.18}
 }
 ```
 

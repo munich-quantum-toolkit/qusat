@@ -22,6 +22,7 @@ if sys.platform == "win32" and "Z3_ROOT" in os.environ:
     if bin_path.exists():
         os.add_dll_directory(str(bin_path))
 
+from ._version import version as __version__
 from .pyqusat import check_equivalence, generate_dimacs
 
-__all__ = ["check_equivalence", "generate_dimacs"]
+__all__ = ["__version__", "check_equivalence", "generate_dimacs"]
