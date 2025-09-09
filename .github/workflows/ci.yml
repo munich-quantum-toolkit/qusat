@@ -166,7 +166,8 @@ jobs:
       # 4.13.0 has incorrectly tagged manylinux wheels
       z3-version: 4.12.6
 
-  required-checks-pass: # This job does nothing and is only used for branch protection
+  # this job does nothing and is only used for branch protection
+  required-checks-pass:
     name: 🚦 Check
     if: always()
     needs:
@@ -192,12 +193,20 @@ jobs:
               && '' || 'cpp-tests-ubuntu,cpp-tests-macos,cpp-tests-windows,'
             }}
             ${{
+              fromJSON(needs.change-detection.outputs.run-cpp-tests)
+              && '' || 'cpp-coverage,'
+            }}
+            ${{
               fromJSON(needs.change-detection.outputs.run-cpp-linter)
               && '' || 'cpp-linter,'
             }}
             ${{
               fromJSON(needs.change-detection.outputs.run-python-tests)
-              && '' || 'python-tests,'
+              && '' || 'python-tests,python-coverage,'
+            }}
+            ${{
+              fromJSON(needs.change-detection.outputs.run-python-tests)
+              && '' || 'python-linter,'
             }}
             ${{
               fromJSON(needs.change-detection.outputs.run-code-ql)
