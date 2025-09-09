@@ -36,8 +36,6 @@ jobs:
       compiler: ${{ matrix.compiler }}
       config: ${{ matrix.config }}
       setup-z3: true
-    permissions:
-      contents: read
 
   cpp-tests-macos:
     name: 🇨‌ Test 🍎
@@ -55,8 +53,6 @@ jobs:
       compiler: ${{ matrix.compiler }}
       config: ${{ matrix.config }}
       setup-z3: true
-    permissions:
-      contents: read
 
   cpp-tests-windows:
     name: 🇨‌ Test 🏁
@@ -78,8 +74,6 @@ jobs:
       compiler: ${{ matrix.compiler }}
       config: ${{ matrix.config }}
       setup-z3: true
-    permissions:
-      contents: read
 
   cpp-coverage:
     name: 🇨‌ Coverage
@@ -172,7 +166,8 @@ jobs:
       # 4.13.0 has incorrectly tagged manylinux wheels
       z3-version: 4.12.6
 
-  required-checks-pass: # This job does nothing and is only used for branch protection
+  # this job does nothing and is only used for branch protection
+  required-checks-pass:
     name: 🚦 Check
     if: always()
     needs:
@@ -198,12 +193,20 @@ jobs:
               && '' || 'cpp-tests-ubuntu,cpp-tests-macos,cpp-tests-windows,'
             }}
             ${{
+              fromJSON(needs.change-detection.outputs.run-cpp-tests)
+              && '' || 'cpp-coverage,'
+            }}
+            ${{
               fromJSON(needs.change-detection.outputs.run-cpp-linter)
               && '' || 'cpp-linter,'
             }}
             ${{
               fromJSON(needs.change-detection.outputs.run-python-tests)
-              && '' || 'python-tests,'
+              && '' || 'python-tests,python-coverage,'
+            }}
+            ${{
+              fromJSON(needs.change-detection.outputs.run-python-tests)
+              && '' || 'python-linter,'
             }}
             ${{
               fromJSON(needs.change-detection.outputs.run-code-ql)
