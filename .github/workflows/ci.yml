@@ -35,7 +35,7 @@ jobs:
       runs-on: ${{ matrix.runs-on }}
       compiler: ${{ matrix.compiler }}
       config: ${{ matrix.config }}
-      cmake-args: -G Ninja
+      setup-z3: true
     permissions:
       contents: read
 
@@ -54,7 +54,7 @@ jobs:
       runs-on: ${{ matrix.runs-on }}
       compiler: ${{ matrix.compiler }}
       config: ${{ matrix.config }}
-      cmake-args: -G Ninja -DMQT_CORE_WITH_GMP=ON
+      setup-z3: true
     permissions:
       contents: read
 
@@ -77,7 +77,7 @@ jobs:
       runs-on: ${{ matrix.runs-on }}
       compiler: ${{ matrix.compiler }}
       config: ${{ matrix.config }}
-      cmake-args: -T ClangCL
+      setup-z3: true
     permissions:
       contents: read
 
@@ -86,6 +86,8 @@ jobs:
     needs: change-detection
     if: fromJSON(needs.change-detection.outputs.run-cpp-tests)
     uses: munich-quantum-toolkit/workflows/.github/workflows/reusable-cpp-coverage.yml@v1.16
+    with:
+      setup-z3: true
     permissions:
       contents: read
       id-token: write
@@ -101,6 +103,7 @@ jobs:
       files-changed-only: true
       install-pkgs: "pybind11==3.0.0"
       setup-python: true
+      setup-z3: true
       cpp-linter-extra-args: "-std=c++20"
 
   python-tests:
@@ -114,6 +117,7 @@ jobs:
     uses: munich-quantum-toolkit/workflows/.github/workflows/reusable-python-tests.yml@v1.16
     with:
       runs-on: ${{ matrix.runs-on }}
+      setup-z3: true
 
   python-coverage:
     name: 🐍 Coverage
@@ -129,12 +133,16 @@ jobs:
     needs: change-detection
     if: fromJSON(needs.change-detection.outputs.run-python-tests)
     uses: munich-quantum-toolkit/workflows/.github/workflows/reusable-python-linter.yml@v1.16
+    with:
+      setup-z3: true
 
   code-ql:
     name: 📝 CodeQL
     needs: change-detection
     if: fromJSON(needs.change-detection.outputs.run-code-ql)
     uses: munich-quantum-toolkit/workflows/.github/workflows/reusable-code-ql.yml@v1.16
+    with:
+      setup-z3: true
 
   build-sdist:
     name: 🚀 CD
@@ -160,6 +168,9 @@ jobs:
     uses: munich-quantum-toolkit/workflows/.github/workflows/reusable-python-packaging-wheel-cibuildwheel.yml@v1.16
     with:
       runs-on: ${{ matrix.runs-on }}
+      setup-z3: true
+      # 4.13.0 has incorrectly tagged manylinux wheels
+      z3-version: 4.12.6
 
   required-checks-pass: # This job does nothing and is only used for branch protection
     name: 🚦 Check
