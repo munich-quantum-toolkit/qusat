@@ -6,52 +6,95 @@
 [![codecov](https://img.shields.io/codecov/c/github/munich-quantum-toolkit/qusat?style=flat-square&logo=codecov)](https://codecov.io/gh/munich-quantum-toolkit/qusat)
 
 > [!NOTE]
-> This project is currently in low maintenance mode. We will still fix bugs and accept pull requests, but we will not
-> actively develop new features.
+> This project is currently in low maintenance mode.
+> We will still fix bugs and accept pull requests, but we will not actively develop new features.
 
 <p align="center">
   <a href="https://mqt.readthedocs.io">
-   <picture>
-     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/munich-quantum-toolkit/.github/refs/heads/main/docs/_static/mqt-banner-dark.svg" width="90%">
-     <img src="https://raw.githubusercontent.com/munich-quantum-toolkit/.github/refs/heads/main/docs/_static/mqt-banner-light.svg" width="90%" alt="MQT Banner">
-   </picture>
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/munich-quantum-toolkit/.github/refs/heads/main/docs/_static/logo-mqt-dark.svg" width="60%">
+      <img src="https://raw.githubusercontent.com/munich-quantum-toolkit/.github/refs/heads/main/docs/_static/logo-mqt-light.svg" width="60%" alt="MQT Logo">
+    </picture>
   </a>
 </p>
 
 # MQT QuSAT - A Tool for Utilizing SAT in Quantum Computing
 
-A tool for utilizing satisfiablity testing (SAT) techniques in quantum computing developed as part of the [_Munich Quantum Toolkit (MQT)_](https://mqt.readthedocs.io) [^1] based on methods proposed in:
+A tool for utilizing satisfiablity testing (SAT) techniques in quantum computing.
+It is part of the [_Munich Quantum Toolkit (MQT)_](https://mqt.readthedocs.io).
 
-- [[1]](https://arxiv.org/abs/2203.00698) L. Berent, L. Burgholzer, and R. Wille. Towards a Satisfiability Encoding for Quantum Circuits. International Conference on Theory and Applications of Satisfiability Testing. 2022.
+<p align="center">
+  <a href="https://mqt.readthedocs.io/projects/qusat">
+  <img width=30% src="https://img.shields.io/badge/documentation-blue?style=for-the-badge&logo=read%20the%20docs" alt="Documentation" />
+  </a>
+</p>
 
-QuSAT builds upon [MQT Core](https://github.com/munich-quantum-toolkit/core), which forms the backbone of the MQT.
-
-The project can be used to
+## Key Features
 
 - Encode Clifford circuits in SAT
 - Check the equivalence of Clifford circuits using SAT
 
 If you have any questions, feel free to create a [discussion](https://github.com/munich-quantum-toolkit/qusat/discussions) or an [issue](https://github.com/munich-quantum-toolkit/qusat/issues) on [GitHub](https://github.com/munich-quantum-toolkit/qusat).
 
-## Towards a Satisfiability Encoding for Quantum Circuits
+## Contributors and Supporters
 
-The results from the paper can be reproduced by first building the project as described below and then executing the resulting `qusat_test` executable in the build directory.
-In order to replicate the full range of results, the `test/test_satencoder.cpp` needs to be modified before building the project.
-The corresponding lines to be changed are marked with a `// Paper Evaluation:` comment.
+The _[Munich Quantum Toolkit (MQT)](https://mqt.readthedocs.io)_ is developed by the [Chair for Design Automation](https://www.cda.cit.tum.de/) at the [Technical University of Munich](https://www.tum.de/) and supported by the [Munich Quantum Software Company (MQSC)](https://munichquantum.software).
+Among others, it is part of the [Munich Quantum Software Stack (MQSS)](https://www.munich-quantum-valley.de/research/research-areas/mqss) ecosystem, which is being developed as part of the [Munich Quantum Valley (MQV)](https://www.munich-quantum-valley.de) initiative.
 
-Running the executable, produces several `.json` files containing the experimental data. The python script `/results/visualizer.py` can be used
-to plot the respective data.
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/munich-quantum-toolkit/.github/refs/heads/main/docs/_static/mqt-logo-banner-dark.svg" width="90%">
+    <img src="https://raw.githubusercontent.com/munich-quantum-toolkit/.github/refs/heads/main/docs/_static/mqt-logo-banner-light.svg" width="90%" alt="MQT Partner Logos">
+  </picture>
+</p>
 
-Note that, as we use a randomized procedure to generate input data, the exact experimental data will slightly vary every time the benchmarks are run.
-The experimental data used in the paper is available in `/results` directory.
+Thank you to all the contributors who have helped make MQT QuSAT Synthesizer a reality!
+
+<p align="center">
+  <a href="https://github.com/munich-quantum-toolkit/qusat/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=munich-quantum-toolkit/qusat" alt="Contributors to munich-quantum-toolkit/qusat" />
+  </a>
+</p>
+
+The MQT will remain free, open-source, and permissively licensed—now and in the future.
+We are firmly committed to keeping it open and actively maintained for the quantum computing community.
+
+To support this endeavor, please consider:
+
+- Starring and sharing our repositories: https://github.com/munich-quantum-toolkit
+- Contributing code, documentation, tests, or examples via issues and pull requests
+- Citing the MQT in your publications (see [Cite This](#cite-this))
+- Citing our research in your publications (see [References](https://mqt.readthedocs.io/projects/qusat/en/latest/references.html))
+- Using the MQT in research and teaching, and sharing feedback and use cases
+- Sponsoring us on GitHub: https://github.com/sponsors/munich-quantum-toolkit
+
+<p align="center">
+  <a href="https://github.com/sponsors/munich-quantum-toolkit">
+  <img width=20% src="https://img.shields.io/badge/Sponsor-white?style=for-the-badge&logo=githubsponsors&labelColor=black&color=blue" alt="Sponsor the MQT" />
+  </a>
+</p>
+
+## Getting Started
+
+`mqt.qusat` is available via [PyPI](https://pypi.org/project/mqt.qusat/).
+
+```console
+(.venv) $ pip install mqt.qusat
+```
+
+**Detailed documentation and examples are available at [ReadTheDocs](https://mqt.readthedocs.io/projects/qusat).**
 
 ## System Requirements
 
-Building (and running) is continuously tested under Linux, MacOS, and Windows using the [latest available system versions for GitHub Actions](https://github.com/actions/virtual-environments). However, the implementation should be compatible with any current C++ compiler supporting C++17 and a minimum CMake version of 3.24.
+Building the project requires a C++ compiler with support for C++20 and CMake 3.24 or newer.
+For detail on how to build the project, please refer to the [documentation](https://mqt.readthedocs.io/projects/qusat).
+Building (and running) is continuously tested under Linux, macOS, and Windows using the [latest available system versions for GitHub Actions](https://github.com/actions/runner-images).
+MQT QuSAT Synthesizer is compatible with all [officially supported Python versions](https://devguide.python.org/versions/).
 
-The SMT Solver [Z3 >= 4.8.3](https://github.com/Z3Prover/z3) has to be installed and the dynamic linker has to be able to find the library. This can be accomplished in a multitude of ways:
+The SMT Solver [Z3 >= 4.8.3](https://github.com/Z3Prover/z3) has to be installed and the dynamic linker has to be able to find the library.
+This can be accomplished in a multitude of ways:
 
-- Under Ubuntu 20.04 and newer: `sudo apt-get install libz3-dev`
+- Under Ubuntu 20.04 or newer: `sudo apt-get install libz3-dev`
 - Under macOS: `brew install z3`
 - Alternatively: `pip install z3-solver` and then append the corresponding path to the library path (`LD_LIBRARY_PATH` under Linux, `DYLD_LIBRARY_PATH` under macOS), e.g. via
   ```bash
@@ -60,34 +103,13 @@ The SMT Solver [Z3 >= 4.8.3](https://github.com/Z3Prover/z3) has to be installed
 - Download pre-built binaries from https://github.com/Z3Prover/z3/releases and copy the files to the respective system directories
 - Build Z3 from source and install it to the system
 
-## Configuration and Build
+## Cite This
 
-To start off, clone this repository using
+Please cite the work that best fits your use case.
 
-```shell
-git clone https://github.com/munich-quantum-toolkit/qusat mqt-qusat
-```
+### MQT QuSAT Synthesizer (the tool)
 
-The project uses CMake as the main build configuration tool. Building a project using CMake is a two-stage process. First, CMake needs to be _configured_ by calling
-
-```shell
-cmake -S . -B build -DBUILD_MQT_QUSAT_TESTS=ON -DZ3_ROOT=/path/to/z3/
-```
-
-This tells CMake to search the current directory `.` (passed via `-S`) for a _CMakeLists.txt_ file and process it into a directory `build` (passed via `-B`). If your installation of Z3 is recent enough, the `Z3_ROOT` can typically be omitted.
-
-After configuring with CMake, the library can be built by calling
-
-```shell
-cmake --build build
-```
-
-This tries to build the project in the `build` directory (passed via `--build`).
-Some operating systems and developer environments explicitly require a configuration to be set, which is why the `--config` flag is also passed to the build command. The flag `--parallel <NUMBER_OF_THREADS>` may be added to trigger a parallel build.
-
-# Reference
-
-If you use our tool for your research, we would appreciate if you refer to it by citing the appropriate publication:
+When citing the software itself or results produced with it, cite the MQT QuSAT paper:
 
 ```
 @inproceedings{berent2022sat,
@@ -99,16 +121,38 @@ If you use our tool for your research, we would appreciate if you refer to it by
 }
 ```
 
-[^1]: The _[Munich Quantum Toolkit (MQT)](https://mqt.readthedocs.io)_ is a collection of software tools for quantum computing developed by the [Chair for Design Automation](https://www.cda.cit.tum.de/) at the [Technical University of Munich](https://www.tum.de/) as well as the [Munich Quantum Software Company (MQSC)](https://munichquantum.software). Among others, it is part of the [Munich Quantum Software Stack (MQSS)](https://www.munich-quantum-valley.de/research/research-areas/mqss) ecosystem, which is being developed as part of the [Munich Quantum Valley (MQV)](https://www.munich-quantum-valley.de) initiative.
+### The Munich Quantum Toolkit (the project)
+
+When discussing the overall MQT project or its ecosystem, cite the MQT Handbook:
+
+```bibtex
+@inproceedings{mqt,
+  title        = {The {{MQT}} Handbook: {{A}} Summary of Design Automation Tools and Software for Quantum Computing},
+  shorttitle   = {{The MQT Handbook}},
+  author       = {Wille, Robert and Berent, Lucas and Forster, Tobias and Kunasaikaran, Jagatheesan and Mato, Kevin and Peham, Tom and Quetschlich, Nils and Rovara, Damian and Sander, Aaron and Schmid, Ludwig and Schoenberger, Daniel and Stade, Yannick and Burgholzer, Lukas},
+  year         = 2024,
+  booktitle    = {IEEE International Conference on Quantum Software (QSW)},
+  doi          = {10.1109/QSW62656.2024.00013},
+  eprint       = {2405.17543},
+  eprinttype   = {arxiv},
+  addendum     = {A live version of this document is available at \url{https://mqt.readthedocs.io}}
+}
+```
+
+### Peer-Reviewed Research
+
+When citing the underlying methods and research, please reference the most relevant peer-reviewed publications from the list below:
+
+[[1]](https://arxiv.org/pdf/2203.00698)
+L. Berent, L. Burgholzer, and R. Wille.
+Towards a Satisfiability Encoding for Quantum Circuits.
+_International Conference on Theory and Applications of Satisfiability Testing_, 2022.
 
 ---
 
 ## Acknowledgements
 
-The Munich Quantum Toolkit has been supported by the European
-Research Council (ERC) under the European Union's Horizon 2020 research and innovation program (grant agreement
-No. 101001318), the Bavarian State Ministry for Science and Arts through the Distinguished Professorship Program, as well as the
-Munich Quantum Valley, which is supported by the Bavarian state government with funds from the Hightech Agenda Bayern Plus.
+The Munich Quantum Toolkit has been supported by the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation program (grant agreement No. 101001318), the Bavarian State Ministry for Science and Arts through the Distinguished Professorship Program, as well as the Munich Quantum Valley, which is supported by the Bavarian state government with funds from the Hightech Agenda Bayern Plus.
 
 <p align="center">
   <picture>
