@@ -44,18 +44,20 @@ if(BUILD_MQT_QUSAT_BINDINGS)
 endif()
 
 # cmake-format: off
+set(MQT_CORE_MINIMUM_VERSION 3.2.1
+    CACHE STRING "MQT Core minimum version")
 set(MQT_CORE_VERSION 3.2.1
     CACHE STRING "MQT Core version")
 set(MQT_CORE_REV "0425f88169f573e4505b49703c4cadf3699ccbcd"
     CACHE STRING "MQT Core identifier (tag, branch or commit hash)")
 set(MQT_CORE_REPO_OWNER "munich-quantum-toolkit"
-    CACHE STRING "MQT Core repository owner (change when using a fork)")
+	  CACHE STRING "MQT Core repository owner (change when using a fork)")
 # cmake-format: on
 FetchContent_Declare(
   mqt-core
   GIT_REPOSITORY https://github.com/${MQT_CORE_REPO_OWNER}/core.git
   GIT_TAG ${MQT_CORE_REV}
-  FIND_PACKAGE_ARGS ${MQT_CORE_VERSION})
+  FIND_PACKAGE_ARGS ${MQT_CORE_MINIMUM_VERSION})
 list(APPEND FETCH_PACKAGES mqt-core)
 
 if(BUILD_MQT_QUSAT_TESTS)
