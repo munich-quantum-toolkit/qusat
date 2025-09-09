@@ -25,20 +25,21 @@ list(
   ${BASEPOINT}/../../core/lib
   ${BASEPOINT}/../../core/lib64)
 
-pybind11_add_module(
-  py${PROJECT_NAME}
-  # Prefer thin LTO if available
-  THIN_LTO
-  # Optimize the bindings for size
-  OPT_SIZE
-  # Source code goes here
-  bindings.cpp)
-target_compile_definitions(py${PROJECT_NAME} PRIVATE Z3_FOUND)
-target_link_libraries(py${PROJECT_NAME} PRIVATE ${PROJECT_NAME} pybind11_json MQT::ProjectOptions
-                                                MQT::ProjectWarnings)
+add_mqt_python_binding(
+  QUSAT
+  ${MQT_QUSAT_TARGET_NAME}-bindings
+  bindings.cpp
+  MODULE_NAME
+  pyqusat
+  INSTALL_DIR
+  .
+  LINK_LIBS
+  MQT::QuSAT
+  pybind11_json)
+target_compile_definitions(${MQT_QUSAT_TARGET_NAME}-bindings PRIVATE Z3_FOUND)
 
 # Install directive for scikit-build-core
 install(
-  TARGETS py${PROJECT_NAME}
+  TARGETS ${MQT_QUSAT_TARGET_NAME}-bindings
   DESTINATION .
-  COMPONENT mqt-${PROJECT_NAME}_Python)
+  COMPONENT ${MQT_QUSAT_TARGET_NAME}_Python)

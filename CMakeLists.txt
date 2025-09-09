@@ -45,8 +45,14 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 include(cmake/ExternalDependencies.cmake)
 
+set(MQT_QUSAT_TARGET_NAME "mqt-qusat")
+
 # add main library code
 add_subdirectory(src)
+
+if(BUILD_MQT_QUSAT_BINDINGS)
+  add_subdirectory(bindings)
+endif()
 
 # add test code
 if(BUILD_MQT_QUSAT_TESTS)
