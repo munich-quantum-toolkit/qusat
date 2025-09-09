@@ -25,3 +25,5 @@ target_link_libraries(${MQT_QUSAT_TARGET_NAME} PUBLIC z3::z3lib)
 
 # add MQT alias
 add_library(MQT::QuSAT ALIAS ${MQT_QUSAT_TARGET_NAME})
+
+target_compile_features(${MQT_QUSAT_TARGET_NAME} INTERFACE cxx_std_20)
