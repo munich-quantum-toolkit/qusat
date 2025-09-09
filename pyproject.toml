@@ -251,7 +251,7 @@ lits = "lits"
 
 [tool.cibuildwheel]
 build = "cp3*"
-skip = "*-musllinux_*"
+skip = "*-musllinux*"
 archs = "auto64"
 test-groups = ["test"]
 test-command = "pytest {project}/test/python"
@@ -264,6 +264,9 @@ manylinux-s390x-image = "manylinux_2_28"
 test-skip = [
   "cp3*t-*", # no freethreading qiskit wheels
   "cp*-win_arm64", # no numpy, qiskit, ... wheels
+  # TODO(denialhaag): Remove when all dependencies support Python 3.14
+  #   https://github.com/munich-quantum-toolkit/qusat/issues/188
+  "cp314-*",
 ]
 
 # The mqt-core shared libraries are provided by the mqt-core Python package.
@@ -276,9 +279,9 @@ before-all = "/opt/python/cp311-cp311/bin/pip install z3-solver==4.12.6"
 repair-wheel-command = [
     "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/python/cp311-cp311/lib/python3.11/site-packages/z3/lib",
     """auditwheel repair -w {dest_dir} {wheel} \
-  --exclude libmqt-core-ir.so.3.0 \
-  --exclude libmqt-core-qasm.so.3.0 \
-  --exclude libmqt-core-circuit-optimizer.so.3.0""",
+  --exclude libmqt-core-ir.so.3.2 \
+  --exclude libmqt-core-qasm.so.3.2 \
+  --exclude libmqt-core-circuit-optimizer.so.3.2""",
 ]
 
 [tool.cibuildwheel.macos]
