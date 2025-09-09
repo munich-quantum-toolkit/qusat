@@ -2,7 +2,7 @@
 requires = [
     "scikit-build-core>=0.11.2",
     "setuptools-scm>=8.3.1",
-    "pybind11>=2.13.6",
+    "pybind11>=3.0.0",
     "mqt.core~=3.0.2",
 ]
 build-backend = "scikit_build_core.build"
@@ -303,7 +303,7 @@ mqt-qusat = { workspace = true }
 
 [dependency-groups]
 build = [
-  "pybind11>=2.13.6",
+  "pybind11>=3.0.0",
   "scikit-build-core>=0.11.2",
   "setuptools-scm>=8.3.1",
   "mqt.core~=3.0.2",
