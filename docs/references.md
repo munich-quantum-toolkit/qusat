@@ -7,11 +7,11 @@ If you want to cite this article, please use the following BibTeX entry:
 
 ```bibtex
 @inproceedings{berent2022sat,
-  title        = {Towards a SAT Encoding for Quantum Circuits: A Journey From Classical Circuits to Clifford Circuits and Beyond},
+  title        = {Towards a {{SAT}} Encoding for Quantum Circuits: {{A}} Journey From Classical Circuits to {{Clifford}} Circuits and Beyond},
   author       = {Berent, Lucas and Burgholzer, Lukas and Wille, Robert},
   year         = {2022},
   booktitle    = {International Conference on Theory and Applications of Satisfiability Testing},
-  doi          = {https://doi.org/10.4230/LIPIcs.SAT.2022.18}
+  doi          = {10.4230/LIPIcs.SAT.2022.18}
 }
 ```
 
