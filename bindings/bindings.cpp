@@ -38,7 +38,7 @@ std::string printDIMACS(qc::QuantumComputation& qc) {
   return encoder.generateDIMACS(qc);
 }
 
-PYBIND11_MODULE(pyqusat, m) {
+PYBIND11_MODULE(MQT_QUSAT_MODULE_NAME, m, py::mod_gil_not_used()) {
   m.doc() =
       "Python interface for the MQT QuSAT quantum circuit satisfiability tool";
 

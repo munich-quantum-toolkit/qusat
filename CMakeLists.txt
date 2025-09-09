@@ -37,7 +37,7 @@ if(BUILD_MQT_QUSAT_BINDINGS)
   endif()
 
   # top-level call to find Python
-  find_package(Python 3.9 REQUIRED COMPONENTS Interpreter Development.Module)
+  find_package(Python 3.10 REQUIRED COMPONENTS Interpreter Development.Module)
 endif()
 
 # Add path for custom modules
@@ -45,8 +45,14 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 include(cmake/ExternalDependencies.cmake)
 
+set(MQT_QUSAT_TARGET_NAME "mqt-qusat")
+
 # add main library code
 add_subdirectory(src)
+
+if(BUILD_MQT_QUSAT_BINDINGS)
+  add_subdirectory(bindings)
+endif()
 
 # add test code
 if(BUILD_MQT_QUSAT_TESTS)
