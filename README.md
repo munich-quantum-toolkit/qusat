@@ -48,7 +48,7 @@ Among others, it is part of the [Munich Quantum Software Stack (MQSS)](https://w
   </picture>
 </p>
 
-Thank you to all the contributors who have helped make MQT QuSAT Synthesizer a reality!
+Thank you to all the contributors who have helped make MQT QuSAT a reality!
 
 <p align="center">
   <a href="https://github.com/munich-quantum-toolkit/qusat/graphs/contributors">
@@ -89,14 +89,14 @@ To support this endeavor, please consider:
 Building the project requires a C++ compiler with support for C++20 and CMake 3.24 or newer.
 For detail on how to build the project, please refer to the [documentation](https://mqt.readthedocs.io/projects/qusat).
 Building (and running) is continuously tested under Linux, macOS, and Windows using the [latest available system versions for GitHub Actions](https://github.com/actions/runner-images).
-MQT QuSAT Synthesizer is compatible with all [officially supported Python versions](https://devguide.python.org/versions/).
+MQT QuSAT is compatible with all [officially supported Python versions](https://devguide.python.org/versions/).
 
 The SMT Solver [Z3 >= 4.8.3](https://github.com/Z3Prover/z3) has to be installed and the dynamic linker has to be able to find the library.
 This can be accomplished in a multitude of ways:
 
 - Under Ubuntu 20.04 or newer: `sudo apt-get install libz3-dev`
 - Under macOS: `brew install z3`
-- Alternatively: `pip install z3-solver` and then append the corresponding path to the library path (`LD_LIBRARY_PATH` under Linux, `DYLD_LIBRARY_PATH` under macOS), e.g. via
+- Alternatively: `pip install z3-solver` and then append the corresponding path to the library path (`LD_LIBRARY_PATH` under Linux, `DYLD_LIBRARY_PATH` under macOS), e.g., via
   ```bash
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(python -c "import z3; print(z3.__path__[0]+'/lib')")
   ```
@@ -107,11 +107,11 @@ This can be accomplished in a multitude of ways:
 
 Please cite the work that best fits your use case.
 
-### MQT QuSAT Synthesizer (the tool)
+### MQT QuSAT (the tool)
 
 When citing the software itself or results produced with it, cite the MQT QuSAT paper:
 
-```
+```bibtex
 @inproceedings{berent2022sat,
   title        = {Towards a SAT Encoding for Quantum Circuits: A Journey From Classical Circuits to Clifford Circuits and Beyond},
   author       = {Berent, Lucas and Burgholzer, Lukas and Wille, Robert},
