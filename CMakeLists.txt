@@ -37,7 +37,7 @@ if(BUILD_MQT_QUSAT_BINDINGS)
   endif()
 
   # top-level call to find Python
-  find_package(Python 3.9 REQUIRED COMPONENTS Interpreter Development.Module)
+  find_package(Python 3.10 REQUIRED COMPONENTS Interpreter Development.Module)
 endif()
 
 # Add path for custom modules
