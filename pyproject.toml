@@ -175,7 +175,7 @@ extend-select = [
     "ANN",         # flake8-annotations
     "ARG",         # flake8-unused-arguments
     "ASYNC",       # flake8-async
-    "B",  "B904",  # flake8-bugbear
+    "B",           # flake8-bugbear
     "C4",          # flake8-comprehensions
     "D",           # pydocstyle
     "EM",          # flake8-errmsg
@@ -205,7 +205,7 @@ extend-select = [
     "SLOT",        # flake8-slots
     "SIM",         # flake8-simplify
     "T20",         # flake8-print
-    "TCH",         # flake8-type-checking
+    "TC",          # flake8-type-checking
     "TID",         # flake8-tidy-imports
     "TRY",         # tryceratops
     "UP",          # pyupgrade
@@ -218,17 +218,10 @@ ignore = [
     "PLC0415", # Import should be at top of file
     "S101",    # Use of assert detected
 ]
-
-[tool.ruff.lint.flake8-tidy-imports.banned-api]
-"typing.Callable".msg = "Use collections.abc.Callable instead."
-"typing.Iterator".msg = "Use collections.abc.Iterator instead."
-"typing.Mapping".msg = "Use collections.abc.Mapping instead."
-"typing.Sequence".msg = "Use collections.abc.Sequence instead."
-"typing.Set".msg = "Use collections.abc.Set instead."
+future-annotations = true
 
 [tool.ruff.lint.isort]
 known-first-party = ["mqt.qusat"]
-required-imports = ["from __future__ import annotations"]
 
 [tool.ruff.lint.per-file-ignores]
 "test/python/**" = [
@@ -254,11 +247,16 @@ default.extend-ignore-re = [
     "(?Rm)^.*(#|//)\\s*spellchecker:disable-line$",  # ignore line
     "(?s)(#|//)\\s*spellchecker:off.*?\\n\\s*(#|//)\\s*spellchecker:on" # ignore block
 ]
+
 [tool.typos.default.extend-words]
 wille = "wille"
 anc = "anc"
 aer = "aer"
 lits = "lits"
+
+
+[tool.repo-review]
+ignore = ["GH200"]
 
 
 [tool.cibuildwheel]
