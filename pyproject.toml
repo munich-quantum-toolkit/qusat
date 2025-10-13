@@ -274,9 +274,6 @@ manylinux-s390x-image = "manylinux_2_28"
 test-skip = [
   "cp3*t-*", # no freethreading qiskit wheels
   "cp*-win_arm64", # no numpy, qiskit, ... wheels
-  # TODO(denialhaag): Remove when all dependencies support Python 3.14
-  #   https://github.com/munich-quantum-toolkit/qusat/issues/188
-  "cp314-*",
 ]
 
 # The mqt-core shared libraries are provided by the mqt-core Python package.
@@ -339,6 +336,7 @@ test = [
   "pytest-xdist>=3.7.0",
   "qiskit[qasm3-import]>=1.0.0",
   "numpy>=2.1; python_version >= '3.13'",
+  "numpy>=2.3.2; python_version >= '3.14'",
 ]
 dev = [
   {include-group = "build"},
