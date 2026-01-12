@@ -19,13 +19,13 @@ keywords = ["MQT", "quantum-computing", "design-automation", "satisfiability"]
 license = "MIT"
 license-files = ["LICENSE.md"]
 
-classifiers=[
+classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Science/Research",
     "Natural Language :: English",
-    "Operating System :: POSIX :: Linux",
     "Operating System :: MacOS",
     "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
     "Programming Language :: C++",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
@@ -260,7 +260,10 @@ lits = "lits"
 
 
 [tool.repo-review]
-ignore = ["GH200"]
+ignore = [
+  "GH200", # We use Renovate instead of Dependabot
+  "PC160", # We use a mirror of crate-ci/typos
+]
 
 
 [tool.cibuildwheel]
@@ -309,7 +312,11 @@ repair-wheel-command = """delvewheel repair -w {dest_dir} {wheel} --namespace-pk
 
 [tool.uv]
 required-version = ">=0.6.9"
-reinstall-package = ["mqt.qusat"]
+cache-keys = [
+  { file = "pyproject.toml" },
+  { git = { commit = true, tags = true } },
+  { file = "bindings/**/*.cpp"},
+]
 
 [tool.uv.sources]
 mqt-qusat = { workspace = true }
