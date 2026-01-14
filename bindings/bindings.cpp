@@ -54,7 +54,7 @@ NB_MODULE(MQT_QUSAT_MODULE_NAME, m) {
         const nb::object  loads = json.attr("loads");
         return loads(checkEquivalence(circ1, circ2, inputs).dump());
       },
-      "Check the equivalence of two clifford circuits for the given inputs."
+      "Check the equivalence of two clifford circuits for the given inputs. "
       "If no inputs are given, the all zero state is used as input.",
       "circ1"_a, "circ2"_a, "inputs"_a = std::vector<std::string>());
 
