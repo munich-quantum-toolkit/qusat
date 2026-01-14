@@ -203,6 +203,10 @@ def stubs(session: nox.Session) -> None:
 
     pyi_files = list(package_root.glob("**/*.pyi"))
 
+    if not pyi_files:
+        session.warn("No .pyi files found")
+        return
+
     if shutil.which("prek") is None:
         session.install("prek")
 
