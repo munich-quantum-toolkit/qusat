@@ -6,12 +6,13 @@
 #
 # Licensed under the MIT License
 
+from collections.abc import Sequence
 from typing import Any
 
 import mqt.core.ir
 
 def check_equivalence(
-    circ1: mqt.core.ir.QuantumComputation, circ2: mqt.core.ir.QuantumComputation, inputs: list[str] = []
+    circ1: mqt.core.ir.QuantumComputation, circ2: mqt.core.ir.QuantumComputation, inputs: Sequence[str] | None = None
 ) -> dict[str, Any]:
     """Check the equivalence of two clifford circuits for the given inputs. If no inputs are given, the all zero state is used as input."""
 
