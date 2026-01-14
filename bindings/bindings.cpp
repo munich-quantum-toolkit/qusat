@@ -54,11 +54,13 @@ NB_MODULE(MQT_QUSAT_MODULE_NAME, m) {
         const nb::object  loads = json.attr("loads");
         return loads(checkEquivalence(circ1, circ2, inputs).dump());
       },
+      "circ1"_a, "circ2"_a, "inputs"_a = std::vector<std::string>(),
+      nb::sig("def check_equivalence(circ1: mqt.core.ir.QuantumComputation, "
+              "circ2: mqt.core.ir.QuantumComputation, inputs: list[str] = []) "
+              "-> dict[str, typing.Any]"),
       "Check the equivalence of two clifford circuits for the given inputs. "
-      "If no inputs are given, the all zero state is used as input.",
-      "circ1"_a, "circ2"_a, "inputs"_a = std::vector<std::string>());
+      "If no inputs are given, the all zero state is used as input.");
 
-  m.def("generate_dimacs", &printDIMACS,
-        "Output the DIMACS CNF representation from Z3 of the given circuit.",
-        "circ"_a);
+  m.def("generate_dimacs", &printDIMACS, "circ"_a,
+        "Output the DIMACS CNF representation from Z3 of the given circuit.");
 }
