@@ -25,7 +25,7 @@ list(
   ${BASEPOINT}/../../core/lib
   ${BASEPOINT}/../../core/lib64)
 
-add_mqt_python_binding(
+add_mqt_python_binding_nanobind(
   QUSAT
   ${MQT_QUSAT_TARGET_NAME}-bindings
   bindings.cpp
@@ -34,8 +34,8 @@ add_mqt_python_binding(
   INSTALL_DIR
   .
   LINK_LIBS
-  MQT::QuSAT
-  pybind11_json)
+  MQT::QuSAT)
+
 target_compile_definitions(${MQT_QUSAT_TARGET_NAME}-bindings PRIVATE Z3_FOUND)
 
 # Install directive for scikit-build-core

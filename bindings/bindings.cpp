@@ -9,14 +9,15 @@
  */
 
 #include "SatEncoder.hpp"
+#include "ir/QuantumComputation.hpp"
 
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11_json/pybind11_json.hpp> // IWYU pragma: keep
+#include <nanobind/nanobind.h>
+#include <nanobind/stl/string.h> // NOLINT(misc-include-cleaner)
+#include <nanobind/stl/vector.h> // NOLINT(misc-include-cleaner)
 
-namespace py = pybind11;
 namespace nl = nlohmann;
-using namespace pybind11::literals;
+namespace nb = nanobind;
+using namespace nb::literals;
 
 nl::basic_json<> checkEquivalence(qc::QuantumComputation&         qc1,
                                   qc::QuantumComputation&         qc2,
@@ -26,7 +27,8 @@ nl::basic_json<> checkEquivalence(qc::QuantumComputation&         qc1,
   try {
     results["equivalent"] = encoder.testEqual(qc1, qc2, inputs);
   } catch (std::exception const& e) {
-    py::print("Could not check equivalence: ", e.what());
+    nb::print(
+        ("Could not check equivalence: " + std::string(e.what())).c_str());
     return {};
   }
   results["statistics"] = encoder.getStats().to_json();
@@ -38,14 +40,23 @@ std::string printDIMACS(qc::QuantumComputation& qc) {
   return encoder.generateDIMACS(qc);
 }
 
-PYBIND11_MODULE(MQT_QUSAT_MODULE_NAME, m, py::mod_gil_not_used()) {
+NB_MODULE(MQT_QUSAT_MODULE_NAME, m) {
+  nb::module_::import_("mqt.core.ir");
+
   m.doc() =
       "Python interface for the MQT QuSAT quantum circuit satisfiability tool";
 
-  m.def("check_equivalence", &checkEquivalence,
-        "Check the equivalence of two clifford circuits for the given inputs."
-        "If no inputs are given, the all zero state is used as input.",
-        "circ1"_a, "circ2"_a, "inputs"_a = std::vector<std::string>());
+  m.def(
+      "check_equivalence",
+      [](qc::QuantumComputation& circ1, qc::QuantumComputation& circ2,
+         const std::vector<std::string>& inputs) {
+        const nb::module_ json  = nb::module_::import_("json");
+        const nb::object  loads = json.attr("loads");
+        return loads(checkEquivalence(circ1, circ2, inputs).dump());
+      },
+      "Check the equivalence of two clifford circuits for the given inputs."
+      "If no inputs are given, the all zero state is used as input.",
+      "circ1"_a, "circ2"_a, "inputs"_a = std::vector<std::string>());
 
   m.def("generate_dimacs", &printDIMACS,
         "Output the DIMACS CNF representation from Z3 of the given circuit.",
