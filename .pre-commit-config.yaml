@@ -11,7 +11,7 @@ ci:
   autoupdate_commit_msg: "⬆️🪝 update pre-commit hooks"
   autoupdate_schedule: quarterly
   autofix_commit_msg: "🎨 pre-commit fixes"
-  skip: [mypy]
+  skip: [ty-check]
 
 repos:
   # Standard hooks
@@ -71,16 +71,16 @@ repos:
       - id: ruff-check
       - id: ruff-format
 
-  # Static type checking using mypy
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.19.1
+  ## Static type checking using ty
+  - repo: local
     hooks:
-      - id: mypy
-        files: ^(python/mqt|test/python|noxfile.py)
-        args: []
-        additional_dependencies:
-          - nox
-          - mqt.core>=3.2.1
+      - id: ty-check
+        name: ty check
+        entry: uvx python -c "import subprocess; import sys; r = subprocess.run(['uv', 'sync', '--no-install-project', '--inexact']); sys.exit(r.returncode or subprocess.run(['uv', 'run', '--no-sync', 'ty', 'check']).returncode)"
+        language: unsupported
+        require_serial: true
+        types_or: [python, pyi, jupyter]
+        exclude: ^(docs/|results/)
 
   # Also run Black on examples in the documentation
   - repo: https://github.com/adamchainz/blacken-docs
