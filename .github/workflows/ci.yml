@@ -141,6 +141,8 @@ jobs:
     with:
       setup-z3: true
       check-stubs: true
+      enable-ty: true
+      enable-mypy: false
 
   build-sdist:
     name: 🚀 CD
