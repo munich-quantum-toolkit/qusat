@@ -99,7 +99,7 @@ jobs:
       clang-version: 21
       cmake-args: -DBUILD_MQT_QUSAT_BINDINGS=ON
       files-changed-only: true
-      install-pkgs: "nanobind==2.10.2"
+      install-pkgs: "nanobind==2.11.0"
       setup-python: true
       setup-z3: true
       cpp-linter-extra-args: "-std=c++20"

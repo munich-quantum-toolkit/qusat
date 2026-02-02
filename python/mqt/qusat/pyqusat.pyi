@@ -6,6 +6,8 @@
 #
 # Licensed under the MIT License
 
+"""Python interface for the MQT QuSAT quantum circuit satisfiability tool."""
+
 from collections.abc import Sequence
 from typing import Any
 
