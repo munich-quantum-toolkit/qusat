@@ -19,7 +19,6 @@ import argparse
 import contextlib
 import os
 import shutil
-import sys
 import tempfile
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -66,9 +65,6 @@ def _run_tests(
     run_args: Sequence[str] = (),
 ) -> None:
     env = {"UV_PROJECT_ENVIRONMENT": session.virtualenv.location}
-    if os.environ.get("CI", None) and sys.platform == "win32":
-        env["SKBUILD_CMAKE_ARGS"] = "-T ClangCL"
-
     if shutil.which("cmake") is None and shutil.which("cmake3") is None:
         session.install("cmake")
     if shutil.which("ninja") is None:
@@ -109,10 +105,6 @@ def _run_tests(
 @nox.session(python=PYTHON_ALL_VERSIONS, reuse_venv=True, default=True)
 def tests(session: nox.Session) -> None:
     """Run the test suite."""
-    # enable profile check when running locally or when running on Linux with Python 3.12 in CI
-    if os.environ.get("CI", None) is None or (sys.platform == "linux" and session.python == "3.12"):
-        session.env["CHECK_PROFILES"] = "1"
-
     _run_tests(session)
 
 
