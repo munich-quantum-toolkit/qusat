@@ -4,9 +4,8 @@
 # Installation
 
 MQT QuSAT is primarily developed as a C++20 library with Python bindings. The
-Python package is available on
-[PyPI](https://pypi.org/project/mqt.qusat/) and can be installed on all
-major operating systems with all
+Python package is available on [PyPI](https://pypi.org/project/mqt.qusat/) and
+can be installed on all major operating systems with all
 [officially supported Python versions](https://devguide.python.org/versions/).
 
 :::::{tip}
@@ -66,6 +65,7 @@ python -m pip install mqt.qusat
 :::
 
 ::::
+
 In most cases, no compilation is required; a platform-specific prebuilt wheel is
 downloaded and installed.
 
@@ -111,8 +111,8 @@ and [CMake](https://cmake.org/) 3.24 or newer.
 
 ## Integrating MQT QuSAT into Your Project
 
-To use the MQT QuSAT Python package in your project, add it as a dependency
-in your {code}`pyproject.toml` or {code}`setup.py`. This ensures the package is
+To use the MQT QuSAT Python package in your project, add it as a dependency in
+your {code}`pyproject.toml` or {code}`setup.py`. This ensures the package is
 installed when your project is installed.
 
 ::::{tab-set}
