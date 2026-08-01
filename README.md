@@ -170,7 +170,8 @@ relevant peer-reviewed publications from the list below:
 
 [[1]](https://arxiv.org/pdf/2203.00698) L. Berent, L. Burgholzer, and R. Wille.
 Towards a Satisfiability Encoding for Quantum Circuits.
-_International Conference on Theory and Applications of Satisfiability Testing_, 2022.
+_International Conference on Theory and Applications of Satisfiability Testing_,
+2022.
 
 ---
 
