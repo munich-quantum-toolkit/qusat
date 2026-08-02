@@ -114,9 +114,9 @@ accomplished in a multitude of ways:
 
 - Under Ubuntu 20.04 or newer: `sudo apt-get install libz3-dev`
 - Under macOS: `brew install z3`
-- Alternatively: `pip install z3-solver` and then append the corresponding path
-  to the library path (`LD_LIBRARY_PATH` under Linux, `DYLD_LIBRARY_PATH` under
-  macOS), e.g., via
+- Alternatively: `uv pip install z3-solver` and then append the corresponding
+  path to the library path (`LD_LIBRARY_PATH` under Linux, `DYLD_LIBRARY_PATH`
+  under macOS), e.g., via
 
   ```bash
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(python -c "import z3; print(z3.__path__[0]+'/lib')")
