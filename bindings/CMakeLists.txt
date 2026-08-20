@@ -25,7 +25,7 @@ list(
   ${BASEPOINT}/../../core/lib
   ${BASEPOINT}/../../core/lib64)
 
-add_mqt_python_binding_nanobind(
+add_mqt_python_binding(
   QUSAT
   ${MQT_QUSAT_TARGET_NAME}-bindings
   bindings.cpp
