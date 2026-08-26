@@ -35,16 +35,16 @@ TEST_F(SatEncoderTest, CheckEqualWhenEqualRandomCircuits) {
   EXPECT_EQ(result, true);
 }
 
-TEST_F(SatEncoderTest, CheckEqualWithMultiQubitGate) {
-  qc::QuantumComputation circOne(3);
+TEST_F(SatEncoderTest, CheckNotEqualWithMultiQubitGate) {
+  qc::QuantumComputation circOne(2);
   circOne.h(0);
-  circOne.s(1);
-  circOne.cx(0, 2);
-  circOne.h(2);
-  auto circTwo = circOne;
+  circOne.cx(0, 1);
+
+  qc::QuantumComputation circTwo(2);
+  circTwo.h(0);
 
   SatEncoder encoder;
-  EXPECT_TRUE(encoder.testEqual(circOne, circTwo));
+  EXPECT_FALSE(encoder.testEqual(circOne, circTwo));
   EXPECT_EQ(encoder.getStats().circuitDepth, 2);
 }
 
