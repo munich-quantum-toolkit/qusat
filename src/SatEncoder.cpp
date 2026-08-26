@@ -29,10 +29,10 @@ bool SatEncoder::testEqual(qc::QuantumComputation&         circuit,
     std::cerr << "Both circuits must be non-empty" << std::endl;
     return false;
   }
-  stats.nrOfDiffInputStates = inputs.size();
-  stats.nrOfQubits          = circuit.getNqubits();
-  const auto dagOne         = qc::CircuitOptimizer::constructDAG(circuit);
-  const auto dagTwo         = qc::CircuitOptimizer::constructDAG(circuitTwo);
+  stats.nrOfDiffInputStates              = inputs.size();
+  stats.nrOfQubits                       = circuit.getNqubits();
+  const auto                  dagOne     = constructDAG(circuit);
+  const auto                  dagTwo     = constructDAG(circuitTwo);
   const CircuitRepresentation circOneRep = preprocessCircuit(dagOne, inputs);
   const CircuitRepresentation circTwoRep = preprocessCircuit(dagTwo, inputs);
   z3::context                 ctx{};
@@ -62,7 +62,7 @@ bool SatEncoder::checkSatisfiability(qc::QuantumComputation&         circuitOne,
   }
   stats.nrOfDiffInputStates = inputs.size();
   stats.nrOfQubits          = circuitOne.getNqubits();
-  const auto  dag           = qc::CircuitOptimizer::constructDAG(circuitOne);
+  const auto  dag           = constructDAG(circuitOne);
   const auto  circRep       = preprocessCircuit(dag, inputs);
   z3::context ctx{};
   z3::solver  solver(ctx);
@@ -73,7 +73,7 @@ bool SatEncoder::checkSatisfiability(qc::QuantumComputation&         circuitOne,
 }
 
 std::string SatEncoder::generateDIMACS(qc::QuantumComputation& qc) {
-  const auto                  dag  = qc::CircuitOptimizer::constructDAG(qc);
+  const auto                  dag  = constructDAG(qc);
   const CircuitRepresentation circ = preprocessCircuit(dag, {});
 
   z3::context ctx{};
@@ -120,9 +120,20 @@ bool SatEncoder::isSatisfiable(z3::solver& solver) {
   return stats.satisfiable;
 }
 
+SatEncoder::DAG
+SatEncoder::constructDAG(const qc::QuantumComputation& circuit) {
+  auto dag = DAG(circuit.getHighestPhysicalQubitIndex() + 1U);
+  for (const auto& operation : circuit) {
+    for (const auto qubit : operation->getUsedQubits()) {
+      dag.at(qubit).push_back(operation.get());
+    }
+  }
+  return dag;
+}
+
 SatEncoder::CircuitRepresentation
-SatEncoder::preprocessCircuit(const qc::CircuitOptimizer::DAG& dag,
-                              const std::vector<std::string>&  inputs) {
+SatEncoder::preprocessCircuit(const DAG&                      dag,
+                              const std::vector<std::string>& inputs) {
   const auto            before     = std::chrono::high_resolution_clock::now();
   const std::size_t     inputSize  = dag.size();
   std::size_t           nrOfLevels = 0;
@@ -178,8 +189,8 @@ SatEncoder::preprocessCircuit(const qc::CircuitOptimizer::DAG& dag,
         if (!dag.at(qubitCnt).empty() &&
             dag.at(qubitCnt).at(levelCnt) != nullptr) {
           stats.nrOfGates++;
-          const auto gate = dag.at(qubitCnt).at(levelCnt)->get();
-          const auto target =
+          const auto* gate = dag.at(qubitCnt).at(levelCnt);
+          const auto  target =
               gate->getTargets().at(0U); // we assume we only have 1 target
 
           for (auto& currState : states) {

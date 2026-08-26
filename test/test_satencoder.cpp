@@ -35,6 +35,19 @@ TEST_F(SatEncoderTest, CheckEqualWhenEqualRandomCircuits) {
   EXPECT_EQ(result, true);
 }
 
+TEST_F(SatEncoderTest, CheckEqualWithMultiQubitGate) {
+  qc::QuantumComputation circOne(3);
+  circOne.h(0);
+  circOne.s(1);
+  circOne.cx(0, 2);
+  circOne.h(2);
+  auto circTwo = circOne;
+
+  SatEncoder encoder;
+  EXPECT_TRUE(encoder.testEqual(circOne, circTwo));
+  EXPECT_EQ(encoder.getStats().circuitDepth, 2);
+}
+
 TEST_F(SatEncoderTest, CheckErrorWhenEmpty) {
   std::random_device rd;
   std::mt19937       gen(rd());
