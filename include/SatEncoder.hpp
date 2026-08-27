@@ -11,7 +11,6 @@
 #pragma once
 
 #include "Statistics.hpp"
-#include "circuit_optimizer/CircuitOptimizer.hpp"
 #include "ir/QuantumComputation.hpp"
 
 #include <cstddef>
@@ -77,6 +76,8 @@ public:
   [[nodiscard]] const Statistics& getStats() const;
 
 private:
+  using DAG = std::vector<std::vector<const qc::Operation*>>;
+
   struct QState {
     unsigned long                  n;
     std::vector<std::vector<bool>> x;
@@ -107,9 +108,10 @@ private:
 
   static bool isClifford(const qc::QuantumComputation& qc);
 
+  static DAG constructDAG(const qc::QuantumComputation& circuit);
+
   CircuitRepresentation
-  preprocessCircuit(const qc::CircuitOptimizer::DAG& dag,
-                    const std::vector<std::string>&  inputs);
+  preprocessCircuit(const DAG& dag, const std::vector<std::string>& inputs);
 
   void constructSatInstance(
       const CircuitRepresentation& circuitRepresentation,

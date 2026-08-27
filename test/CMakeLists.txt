@@ -7,4 +7,5 @@
 # Licensed under the MIT License
 
 package_add_test(${MQT_QUSAT_TARGET_NAME}_test ${MQT_QUSAT_TARGET_NAME} test_satencoder.cpp)
-target_link_libraries(${MQT_QUSAT_TARGET_NAME}_test PRIVATE MQT::CoreAlgorithms)
+target_link_libraries(${MQT_QUSAT_TARGET_NAME}_test PRIVATE MQT::CoreAlgorithms
+                                                            MQT::CoreCircuitOptimizer)
