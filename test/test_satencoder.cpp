@@ -10,7 +10,6 @@
 
 #include "SatEncoder.hpp"
 #include "algorithms/RandomCliffordCircuit.hpp"
-#include "circuit_optimizer/CircuitOptimizer.hpp"
 
 #include <ctime>
 #ifdef _MSC_VER
@@ -20,6 +19,7 @@
 #include <fstream>
 #include <gtest/gtest.h>
 #include <locale>
+#include <random>
 
 class SatEncoderTest : public testing::TestWithParam<std::string> {};
 
@@ -27,7 +27,7 @@ TEST_F(SatEncoderTest, CheckEqualWhenEqualRandomCircuits) {
   std::random_device rd;
   std::mt19937       gen(rd());
   auto               circOne = qc::createRandomCliffordCircuit(2, 1, gen());
-  qc::CircuitOptimizer::flattenOperations(circOne);
+  circOne.flattenOperations();
   auto circTwo = circOne;
 
   SatEncoder satEncoder;
@@ -67,7 +67,7 @@ TEST_F(SatEncoderTest, CheckEqualWhenNotEqualRandomCircuits) {
     circOne = qc::createRandomCliffordCircuit(2, 1, gen());
   }
 
-  qc::CircuitOptimizer::flattenOperations(circOne);
+  circOne.flattenOperations();
   auto circTwo = circOne;
 
   circTwo.erase(circTwo.begin());
@@ -81,7 +81,7 @@ TEST_F(SatEncoderTest, CheckEqualWhenEqualRandomCircuitsWithInputs) {
   std::random_device rd;
   std::mt19937       gen(rd());
   auto               circOne = qc::createRandomCliffordCircuit(50, 10, gen());
-  qc::CircuitOptimizer::flattenOperations(circOne);
+  circOne.flattenOperations();
   auto circTwo = circOne;
 
   SatEncoder               satEncoder;
@@ -100,7 +100,7 @@ TEST_F(SatEncoderTest, CheckSATConstructionWithSmallCircuit) {
   std::random_device rd;
   std::mt19937       gen(rd());
   auto               circOne = qc::createRandomCliffordCircuit(1, 1, gen());
-  qc::CircuitOptimizer::flattenOperations(circOne);
+  circOne.flattenOperations();
 
   SatEncoder satEncoder;
 
@@ -114,7 +114,7 @@ TEST_F(SatEncoderTest, CheckDIMACSConstructionWithSmallCircuit) {
   std::random_device rd;
   std::mt19937       gen(rd());
   auto               circOne = qc::createRandomCliffordCircuit(6, 1, gen());
-  qc::CircuitOptimizer::flattenOperations(circOne);
+  circOne.flattenOperations();
 
   SatEncoder satEncoder;
 
@@ -174,7 +174,7 @@ TEST_F(SatEncoderBenchmarking,
           SatEncoder satEncoder;
           auto       circOne = qc::createRandomCliffordCircuit(
               static_cast<qc::Qubit>(nrOfQubits), depth, rd());
-          qc::CircuitOptimizer::flattenOperations(circOne);
+          circOne.flattenOperations();
           if (nrOfQubits != 1U || j != 0U) {
             outfile << ", ";
           }
@@ -221,7 +221,7 @@ TEST_F(SatEncoderBenchmarking,
           SatEncoder satEncoder;
           auto       circOne = qc::createRandomCliffordCircuit(
               static_cast<qc::Qubit>(nrOfQubits), depth, rd());
-          qc::CircuitOptimizer::flattenOperations(circOne);
+          circOne.flattenOperations();
           if (depth != 1U || j != 0U) {
             outfile << ", ";
           }
@@ -268,7 +268,7 @@ TEST_F(SatEncoderBenchmarking,
           SatEncoder satEncoder;
           auto       circOne = qc::createRandomCliffordCircuit(
               static_cast<qc::Qubit>(nrOfQubits), depth, rd());
-          qc::CircuitOptimizer::flattenOperations(circOne);
+          circOne.flattenOperations();
           if (depth != 1U || j != 0U) {
             outfile << ", ";
           }
@@ -325,7 +325,7 @@ TEST_F(SatEncoderBenchmarking,
 
       auto circOne = qc::createRandomCliffordCircuit(
           static_cast<qc::Qubit>(qubitCnt), depth, gen());
-      qc::CircuitOptimizer::flattenOperations(circOne);
+      circOne.flattenOperations();
       auto circTwo = circOne;
       if (qubitCnt != 4) {
         outfile << ", ";
@@ -348,7 +348,7 @@ TEST_F(SatEncoderBenchmarking,
         SatEncoder satEncoder1;
         auto       circThree = qc::createRandomCliffordCircuit(
             static_cast<qc::Qubit>(qubitCnt), depth, gen());
-        qc::CircuitOptimizer::flattenOperations(circThree);
+        circThree.flattenOperations();
         auto                                       circFour = circThree;
         std::uniform_int_distribution<std::size_t> distr2(
             0U, circFour.size()); // random error location in circuit
