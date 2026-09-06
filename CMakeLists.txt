@@ -7,12 +7,14 @@
 # Licensed under the MIT License
 
 # set required cmake version
-cmake_minimum_required(VERSION 3.24...4.4)
+cmake_minimum_required(VERSION 3.28...4.4)
 
 project(
   qusat
   LANGUAGES CXX
   DESCRIPTION "A Tool for Utilizing SAT in Quantum Computing")
+
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 
 option(BUILD_MQT_QUSAT_BINDINGS "Build the MQT QUSAT Python bindings" OFF)
 option(BUILD_MQT_QUSAT_TESTS "Also build tests for the MQT QUSAT project" ON)
