@@ -8,9 +8,8 @@
  * Licensed under the MIT License
  */
 
+#include "RandomCliffordCircuit.hpp"
 #include "SatEncoder.hpp"
-#include "algorithms/RandomCliffordCircuit.hpp"
-#include "circuit_optimizer/CircuitOptimizer.hpp"
 
 #include <ctime>
 #ifdef _MSC_VER
@@ -20,14 +19,15 @@
 #include <fstream>
 #include <gtest/gtest.h>
 #include <locale>
+#include <random>
 
 class SatEncoderTest : public testing::TestWithParam<std::string> {};
 
 TEST_F(SatEncoderTest, CheckEqualWhenEqualRandomCircuits) {
   std::random_device rd;
   std::mt19937       gen(rd());
-  auto               circOne = qc::createRandomCliffordCircuit(2, 1, gen());
-  qc::CircuitOptimizer::flattenOperations(circOne);
+  auto circOne = qusat::detail::createRandomCliffordCircuit(2, 1, gen());
+  circOne.flattenOperations();
   auto circTwo = circOne;
 
   SatEncoder satEncoder;
@@ -51,23 +51,23 @@ TEST_F(SatEncoderTest, CheckNotEqualWithMultiQubitGate) {
 TEST_F(SatEncoderTest, CheckErrorWhenEmpty) {
   std::random_device rd;
   std::mt19937       gen(rd());
-  auto               ckt     = qc::QuantumComputation(1);
-  auto               circOne = qc::createRandomCliffordCircuit(2, 1, gen());
-  SatEncoder         encoder{};
-  const auto         result = encoder.testEqual(ckt, circOne);
+  auto               ckt = qc::QuantumComputation(1);
+  auto       circOne = qusat::detail::createRandomCliffordCircuit(2, 1, gen());
+  SatEncoder encoder{};
+  const auto result = encoder.testEqual(ckt, circOne);
   EXPECT_EQ(result, false);
 }
 
 TEST_F(SatEncoderTest, CheckEqualWhenNotEqualRandomCircuits) {
   std::random_device rd;
   std::mt19937       gen(rd());
-  auto               circOne = qc::createRandomCliffordCircuit(2, 1, gen());
+  auto circOne = qusat::detail::createRandomCliffordCircuit(2, 1, gen());
 
   while (circOne.empty()) {
-    circOne = qc::createRandomCliffordCircuit(2, 1, gen());
+    circOne = qusat::detail::createRandomCliffordCircuit(2, 1, gen());
   }
 
-  qc::CircuitOptimizer::flattenOperations(circOne);
+  circOne.flattenOperations();
   auto circTwo = circOne;
 
   circTwo.erase(circTwo.begin());
@@ -80,8 +80,8 @@ TEST_F(SatEncoderTest, CheckEqualWhenNotEqualRandomCircuits) {
 TEST_F(SatEncoderTest, CheckEqualWhenEqualRandomCircuitsWithInputs) {
   std::random_device rd;
   std::mt19937       gen(rd());
-  auto               circOne = qc::createRandomCliffordCircuit(50, 10, gen());
-  qc::CircuitOptimizer::flattenOperations(circOne);
+  auto circOne = qusat::detail::createRandomCliffordCircuit(50, 10, gen());
+  circOne.flattenOperations();
   auto circTwo = circOne;
 
   SatEncoder               satEncoder;
@@ -99,8 +99,8 @@ TEST_F(SatEncoderTest, CheckEqualWhenEqualRandomCircuitsWithInputs) {
 TEST_F(SatEncoderTest, CheckSATConstructionWithSmallCircuit) {
   std::random_device rd;
   std::mt19937       gen(rd());
-  auto               circOne = qc::createRandomCliffordCircuit(1, 1, gen());
-  qc::CircuitOptimizer::flattenOperations(circOne);
+  auto circOne = qusat::detail::createRandomCliffordCircuit(1, 1, gen());
+  circOne.flattenOperations();
 
   SatEncoder satEncoder;
 
@@ -113,8 +113,8 @@ TEST_F(SatEncoderTest, CheckSATConstructionWithSmallCircuit) {
 TEST_F(SatEncoderTest, CheckDIMACSConstructionWithSmallCircuit) {
   std::random_device rd;
   std::mt19937       gen(rd());
-  auto               circOne = qc::createRandomCliffordCircuit(6, 1, gen());
-  qc::CircuitOptimizer::flattenOperations(circOne);
+  auto circOne = qusat::detail::createRandomCliffordCircuit(6, 1, gen());
+  circOne.flattenOperations();
 
   SatEncoder satEncoder;
 
@@ -172,9 +172,9 @@ TEST_F(SatEncoderBenchmarking,
         for (size_t j = 0; j < 10;
              j++) { // 10 runs with same params for representative sample
           SatEncoder satEncoder;
-          auto       circOne = qc::createRandomCliffordCircuit(
+          auto       circOne = qusat::detail::createRandomCliffordCircuit(
               static_cast<qc::Qubit>(nrOfQubits), depth, rd());
-          qc::CircuitOptimizer::flattenOperations(circOne);
+          circOne.flattenOperations();
           if (nrOfQubits != 1U || j != 0U) {
             outfile << ", ";
           }
@@ -219,9 +219,9 @@ TEST_F(SatEncoderBenchmarking,
         for (size_t j = 0; j < 10;
              j++) { // 10 runs with same params for representative sample
           SatEncoder satEncoder;
-          auto       circOne = qc::createRandomCliffordCircuit(
+          auto       circOne = qusat::detail::createRandomCliffordCircuit(
               static_cast<qc::Qubit>(nrOfQubits), depth, rd());
-          qc::CircuitOptimizer::flattenOperations(circOne);
+          circOne.flattenOperations();
           if (depth != 1U || j != 0U) {
             outfile << ", ";
           }
@@ -266,9 +266,9 @@ TEST_F(SatEncoderBenchmarking,
         for (size_t j = 0; j < 10;
              j++) { // 10 runs with same params for representative sample
           SatEncoder satEncoder;
-          auto       circOne = qc::createRandomCliffordCircuit(
+          auto       circOne = qusat::detail::createRandomCliffordCircuit(
               static_cast<qc::Qubit>(nrOfQubits), depth, rd());
-          qc::CircuitOptimizer::flattenOperations(circOne);
+          circOne.flattenOperations();
           if (depth != 1U || j != 0U) {
             outfile << ", ";
           }
@@ -323,9 +323,9 @@ TEST_F(SatEncoderBenchmarking,
         inputs.emplace_back(ipts.at(distr(gen2)));
       }
 
-      auto circOne = qc::createRandomCliffordCircuit(
+      auto circOne = qusat::detail::createRandomCliffordCircuit(
           static_cast<qc::Qubit>(qubitCnt), depth, gen());
-      qc::CircuitOptimizer::flattenOperations(circOne);
+      circOne.flattenOperations();
       auto circTwo = circOne;
       if (qubitCnt != 4) {
         outfile << ", ";
@@ -346,9 +346,9 @@ TEST_F(SatEncoderBenchmarking,
       bool result;
       do {
         SatEncoder satEncoder1;
-        auto       circThree = qc::createRandomCliffordCircuit(
+        auto       circThree = qusat::detail::createRandomCliffordCircuit(
             static_cast<qc::Qubit>(qubitCnt), depth, gen());
-        qc::CircuitOptimizer::flattenOperations(circThree);
+        circThree.flattenOperations();
         auto                                       circFour = circThree;
         std::uniform_int_distribution<std::size_t> distr2(
             0U, circFour.size()); // random error location in circuit
