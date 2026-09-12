@@ -10,17 +10,29 @@
 
 from __future__ import annotations
 
-import os
 import sys
-from pathlib import Path
 
-if sys.platform == "win32" and "Z3_ROOT" in os.environ:  # ruff:ignore[non-empty-init-module] This is actually required on Windows
-    lib_path = Path(os.environ["Z3_ROOT"]) / "lib"
-    if lib_path.exists():
-        os.add_dll_directory(str(lib_path))
-    bin_path = Path(os.environ["Z3_ROOT"]) / "bin"
-    if bin_path.exists():
-        os.add_dll_directory(str(bin_path))
+if sys.platform == "win32":  # ruff: ignore[non-empty-init-module]
+    import os
+    import sysconfig
+    from pathlib import Path
+
+    def _dll_patch() -> None:
+        """Add the DLL directory to the PATH."""
+        site_packages = Path(sysconfig.get_paths()["purelib"])
+        bin_dir = site_packages / "mqt" / "core" / "bin"
+        os.add_dll_directory(str(bin_dir))
+
+    _dll_patch()
+    del _dll_patch
+
+    if "Z3_ROOT" in os.environ:
+        lib_path = Path(os.environ["Z3_ROOT"]) / "lib"
+        if lib_path.exists():
+            os.add_dll_directory(str(lib_path))
+        bin_path = Path(os.environ["Z3_ROOT"]) / "bin"
+        if bin_path.exists():
+            os.add_dll_directory(str(bin_path))
 
 from ._version import version as __version__
 from .pyqusat import check_equivalence, generate_dimacs
