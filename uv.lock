@@ -1142,7 +1142,7 @@ test = [
 requires-dist = [
     { name = "mqt-core", specifier = "~=3.10.0" },
     { name = "nanobind-backend", specifier = ">=1" },
-    { name = "qiskit", extras = ["qasm3-import"], marker = "extra == 'qiskit'", specifier = ">=2.1" },
+    { name = "qiskit", extras = ["qasm3-import"], marker = "extra == 'qiskit'", specifier = ">=2.1,<3" },
 ]
 provides-extras = ["qiskit"]
 
@@ -1165,7 +1165,7 @@ dev = [
     { name = "pytest-cov", specifier = ">=7.1" },
     { name = "pytest-sugar", specifier = ">=1.1.1" },
     { name = "pytest-xdist", specifier = ">=3.8" },
-    { name = "qiskit", extras = ["qasm3-import"], specifier = ">=2.1" },
+    { name = "qiskit", extras = ["qasm3-import"], specifier = ">=2.1,<3" },
     { name = "scikit-build-core", specifier = ">=1.0.3" },
     { name = "vcs-versioning", specifier = ">=2.3" },
 ]
@@ -1186,7 +1186,7 @@ test = [
     { name = "pytest-cov", specifier = ">=7.1" },
     { name = "pytest-sugar", specifier = ">=1.1.1" },
     { name = "pytest-xdist", specifier = ">=3.8" },
-    { name = "qiskit", extras = ["qasm3-import"], specifier = ">=2.1" },
+    { name = "qiskit", extras = ["qasm3-import"], specifier = ">=2.1,<3" },
 ]
 
 [[package]]
