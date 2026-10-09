@@ -70,6 +70,7 @@ dev = [
 test = [
   "numpy>=2.1; python_version>='3.13'",
   "numpy>=2.3.2; python_version>='3.14'",
+  "numpy>=2.5.2; python_version>='3.15'",
   "pytest>=9.0.1",
   "pytest-cov>=7.1",
   "pytest-sugar>=1.1.1",
@@ -201,7 +202,7 @@ before-test = "uv pip install --group test"
 test-groups = []
 
 [[tool.cibuildwheel.overrides]]
-select = [ "cp*-win_arm64", "cp315*" ]
+select = [ "cp*-win_arm64", "cp3??t-*" ]
 before-test = ""
 test-command = 'python -c "import mqt.qusat"'
 test-groups = []
