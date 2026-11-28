@@ -115,7 +115,9 @@ and the dynamic linker has to be able to find the library. This can be
 accomplished in a multitude of ways:
 
 - Under Ubuntu 20.04 or newer: `sudo apt-get install libz3-dev`
+
 - Under macOS: `brew install z3`
+
 - Alternatively: `uv pip install z3-solver` and then append the corresponding
   path to the library path (`LD_LIBRARY_PATH` under Linux, `DYLD_LIBRARY_PATH`
   under macOS), e.g., via
@@ -126,6 +128,7 @@ accomplished in a multitude of ways:
 
 - Download pre-built binaries from <https://github.com/Z3Prover/z3/releases> and
   copy the files to the respective system directories
+
 - Build Z3 from source and install it to the system
 
 ## Cite This
